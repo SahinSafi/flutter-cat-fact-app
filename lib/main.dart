@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cat_fact_app/app_routes_path.dart';
 import 'package:flutter_cat_fact_app/core/theme/theme.dart';
-import 'package:flutter_cat_fact_app/presentation/home/home_page.dart';
+import 'package:flutter_cat_fact_app/presentation/home/home_screen.dart';
 import 'core/di/injection_container.dart';
 import 'my_bloc_observer.dart';
 
@@ -20,8 +21,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: CatAppTheme.lightTheme,
       darkTheme: CatAppTheme.darkTheme,
-      home: const HomePage(),
       debugShowCheckedModeBanner: false,
+      routes: appRoutes,
     );
   }
 }

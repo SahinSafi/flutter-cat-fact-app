@@ -1,10 +1,10 @@
-part of 'home_page.dart';
+part of 'home_screen.dart';
 
-class HomePageBanner extends StatelessWidget {
+class HomeScreenBanner extends StatelessWidget {
 
   final List<String> bannerList;
 
-  const HomePageBanner({super.key, required this.bannerList});
+  const HomeScreenBanner({super.key, required this.bannerList});
 
   @override
   Widget build(BuildContext context) {

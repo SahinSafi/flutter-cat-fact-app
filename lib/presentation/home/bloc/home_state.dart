@@ -1,38 +1,31 @@
 part of 'home_bloc.dart';
 
-sealed class HomeState extends Equatable {
-  const HomeState();
-  @override
-  List<Object?> get props => [];
-}
+class HomeState extends Equatable {
 
-final class HomeInitial extends HomeState {
-
-  const HomeInitial();
-
-  @override
-  List<Object> get props => [];
-}
-
-final class HomeApiSuccess extends HomeState {
-
+  final bool isLoading;
+  final String errorMessage;
   final List<String> banners;
   final List<CatFactsEntity> catFacts;
 
-  const HomeApiSuccess({required this.banners, required this.catFacts});
+  const HomeState({
+    this.isLoading = false,
+    this.errorMessage = "",
+    this.banners = const [],
+    this.catFacts = const [],
+  });
+
+  HomeState copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    List<String>? banners,
+    List<CatFactsEntity>? catFacts,}){
+    return HomeState(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      banners: banners ?? this.banners,
+      catFacts: catFacts ?? this.catFacts,);
+  }
 
   @override
-  List<Object?> get props => [banners, catFacts];
-
-}
-
-final class HomeApiFailed extends HomeState {
-
-  final String errorMessage;
-
-  const HomeApiFailed({required this.errorMessage});
-
-  @override
-  List<Object?> get props => [errorMessage];
-
+  List<Object?> get props => [isLoading, errorMessage, banners, catFacts];
 }

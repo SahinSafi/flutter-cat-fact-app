@@ -1,9 +1,8 @@
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cat_fact_app/core/common/api_result.dart';
 import 'package:flutter_cat_fact_app/core/domain/usecase/get_cat_fact_api_use_case.dart';
 import 'package:flutter_cat_fact_app/core/entity/cat_facts_entity.dart';
-import 'package:logger/logger.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
@@ -12,27 +11,24 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   final GetCatFactApiUseCase _catFactApiUseCase;
 
-  HomeBloc(this._catFactApiUseCase) : super(const HomeInitial()) {
-
+  HomeBloc(this._catFactApiUseCase) : super(const HomeState()) {
     on<GetCatFactsEvent>(_getCatFacts);
   }
 
   Future<void> _getCatFacts(GetCatFactsEvent event, Emitter<HomeState> emit) async {
 
-    if(state is HomeApiFailed) {
-      emit(const HomeInitial());
-    }
+    emit(state.copyWith(isLoading: true));
 
     final apiResult = await _catFactApiUseCase.execute();
 
     switch(apiResult) {
       case ApiSuccess() : {
-        Logger().e("success");
-        emit(HomeApiSuccess(banners: bannerList, catFacts: apiResult.data));
+        emit(state.copyWith(banners: bannerList, catFacts: apiResult.data, isLoading: false, errorMessage: ""));
+        return;
       }
       case ApiError() : {
-        Logger().e("failed");
-        emit(HomeApiFailed(errorMessage: apiResult.errorMessage));
+        emit(state.copyWith(errorMessage: apiResult.errorMessage, isLoading: false));
+        return;
       }
     }
 
