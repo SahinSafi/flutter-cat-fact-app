@@ -1,0 +1,2 @@
+D:/FlutterProject/flutter-cat-fact-app/android/app/.cxx/Debug/262o1z25/x86/CMakeFiles/edit_cache.dir
+D:/FlutterProject/flutter-cat-fact-app/android/app/.cxx/Debug/262o1z25/x86/CMakeFiles/rebuild_cache.dir
